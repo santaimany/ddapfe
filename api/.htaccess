@@ -1,0 +1,9 @@
+RewriteEngine On
+# Serve API requests
+RewriteCond %{REQUEST_URI} ^/api
+RewriteRule ^api/(.*)$ /api/v1/$1 [L,QSA]
+
+# Handle React Router: redirect all non-file requests to index.html
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.html [QSA,L]
