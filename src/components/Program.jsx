@@ -11,8 +11,8 @@ import Wavebg from '../asset/wave/wave1.svg';
 
 const Program = () => {
     const handleRegisterClick = () => {
-        window.location.href = 'http://localhost/ddapkelompok4/user/register';
-    }
+        window.location.href = 'https://ddap.myyrhan.id/user/register';
+    };
 
     const titleRef = useRef(null);
     const textRef = useRef(null);

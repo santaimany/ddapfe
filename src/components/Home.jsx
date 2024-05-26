@@ -42,7 +42,7 @@ const Home = () => {
         window.location.href = 'http://localhost:3000/blog';
     };
     const handleRegister = () => {
-        window.location.href = 'http://localhost/ddapkelompok4/user/register';
+        window.location.href = 'https://ddap.myyrhan.id/user/register';
     };
 
 
@@ -109,7 +109,7 @@ const Home = () => {
                             <div className="flex flex-col sm:flex-row">
                                 <button
                                     onClick={gotoPageProgram}
-                                    className="bg-amber-50 max-w-[300px] max-h-[60px] px-9 py-2 rounded-[20px] hover:bg-[#CAF0F8] sm:mb-4 hover:text-black outline outline-1 text-[14px] font-semibold mb-4 sm:mb-0 sm:mr-3 flex items-center"
+                                    className="bg-amber-50 max-w-[300px] max-h-[60px] px-9 py-2 rounded-[20px] hover:bg-[#CAF0F8] sm:mb-4 hover:text-black lg:outline lg:outline-1 text-[14px] font-semibold mb-4 sm:mb-0 sm:mr-3 flex items-center"
                                 >
                                     Pelajari Lebih Lanjut
                                     <svg className="ml-2" width="11" height="12" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -118,7 +118,7 @@ const Home = () => {
                                 </button>
                                 <button
                                     onClick={handleRegister}
-                                    className="bg-black text-white max-w-[300px] max-h-[60px] px-9 py-2 rounded-[20px] hover:bg-[#CAF0F8] sm:mb-4 hover:text-black outline outline-1 text-[14px] font-semibold mb-4 sm:mb-0 sm:mr-3"
+                                    className="bg-black text-white max-w-[300px] max-h-[60px] px-9 py-2 rounded-[20px] hover:bg-[#CAF0F8] sm:mb-4 hover:text-black lg:outline lg:outline-1 text-[14px] font-semibold mb-4 sm:mb-0 sm:mr-3"
                                 >
                                     Daftar Sekarang
                                 </button>
@@ -143,7 +143,7 @@ const Home = () => {
             <div className="text-center relative bottom-14">
                 <button
                     onClick={handleTinjauClick}
-                    className="bg-amber-50 text-black px-10 py-2 rounded-full font-semibold hover:bg-[#CAF0F8] hover:text-black transition-colors outline outline-1"
+                    className="bg-amber-50 text-black px-10 py-2 rounded-full font-semibold hover:bg-[#CAF0F8] hover:text-black transition-colors lg:outline lg:outline-1"
                 >
                     Tinjau
                 </button>

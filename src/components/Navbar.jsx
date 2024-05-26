@@ -13,7 +13,7 @@ const Navbar = () => {
     const location = useLocation();
 
     const handleLoginClick = () => {
-        window.location.href ='http://localhost/ddapkelompok4/user/login'
+        window.location.href ='https://ddap.myyrhan.id/user/login'
     };
 
     useEffect(() => {
@@ -53,9 +53,8 @@ const Navbar = () => {
         setIsNavbarVisible(true);
     }, []);
     const handleRegister = () => {
-        window.location.href = 'http://localhost/ddapkelompok4/user/register';
+        window.location.href = 'https://ddap.myyrhan.id/user/register';
     };
-
     return (
         <div className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 ${isScrolled ? 'bg-white shadow-md' : 'bg-transparent'} ${isNavbarVisible ? 'navbar-drop-down' : ''}`}>
             <div className="container mx-auto flex items-center justify-between px-8 md:px-[140px]">
