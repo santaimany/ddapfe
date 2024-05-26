@@ -7,6 +7,9 @@ import './index.css';
 import 'aos/dist/aos.css';
 import Program from "./components/Program";
 import React from "react";
+import Contactus from './components/Contactus';
+import BlogPages from "./components/Blogpages";
+import Blogs from "./components/Blogs";
 
 
 
@@ -18,9 +21,11 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/signup" element={<SignUp />} />
           <Route path="/about" element={<Aboutus/>}/>
           <Route path="/program" element={<Program/>}/>
+          <Route path="/contact" element={<Contactus/>}/>
+          <Route path='/blog' element={<BlogPages/>}/>
+          <Route path='/blogs' element={<Blogs/>}/>
       </Routes>
     </Router>
 

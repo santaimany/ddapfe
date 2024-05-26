@@ -11,11 +11,10 @@ $email = $_SESSION['email'];
 
 $query = "SELECT * FROM pengajuanrequest WHERE id = ?";
 $stmt = $conn->prepare($query);
-$stmt->bind_param("i", $_SESSION['user_id']); // Menggunakan user_id dari session sebagai $someId
+$stmt->bind_param("i", $_SESSION['user_id']);
 $stmt->execute();
 $result = $stmt->get_result();
 $row = $result->fetch_assoc();
-
 
 $sql = "SELECT * FROM pengajuanrequest WHERE email_tujuan = ?";
 $stmt = $conn->prepare($sql);
@@ -25,364 +24,217 @@ if ($stmt->execute()) {
 } else {
     die("Error executing the query: " . $stmt->error);
 }
-// rest of my code
+
+$sqlUser = "SELECT namalengkap FROM users WHERE email = ?";
+$stmtUser = $conn->prepare($sqlUser);
+$stmtUser->bind_param("s", $email);
+$stmtUser->execute();
+$resultUser = $stmtUser->get_result();
+$userName = $resultUser->fetch_assoc();
+
+if ($userName) {
+    $namalengkap = $userName['namalengkap'];
+} else {
+    $namalengkap = "Nama Tidak Ditemukan"; // Atau penanganan lain sesuai kebutuhan
+}
 ?>
 
-
-
-
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>Notifikasi</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta charset="UTF-8">
+    <title>Persetujuan</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- FontAwesome CDN -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <style>
-    .demo {
-        font-family: 'Noto Sans', sans-serif;
-    }
-
-    .panel {
-        background: linear-gradient(to right, #095d6f, #1773c6);
-        padding: 0;
-        border-radius: 10px;
-        border: none;
-        box-shadow: 0 0 0 5px rgba(0, 0, 0, 0.05), 0 0 0 10px rgba(0, 0, 0, 0.05);
-    }
-
-    .panel .panel-heading {
-        padding: 20px 15px;
-        border-radius: 10px 10px 0 0;
-        margin: 0;
-    }
-
-    .panel .panel-heading .title {
-        color: #fff;
-        font-size: 28px;
-        font-weight: 500;
-        text-transform: capitalize;
-        line-height: 40px;
-        margin: 0;
-    }
-
-    .panel .panel-heading .btn {
-        color: rgba(255, 255, 255, 0.5);
-        background: transparent;
-        font-size: 16px;
-        text-transform: capitalize;
-        border: 2px solid #fff;
-        border-radius: 50px;
-        transition: all 0.3s ease 0s;
-    }
-
-    .panel .panel-heading .btn:hover {
-        color: #fff;
-        text-shadow: 3px 3px rgba(255, 255, 255, 0.2);
-    }
-
-    .panel .panel-heading .form-control {
-        color: #fff;
-        background-color: transparent;
-        width: 35%;
-        height: 40px;
-        border: 2px solid #fff;
-        border-radius: 20px;
-        display: inline-block;
-        transition: all 0.3s ease 0s;
-    }
-
-    .panel .panel-heading .form-control:focus {
-        background-color: rgba(255, 255, 255, 0.2);
-        box-shadow: none;
-        outline: none;
-    }
-
-    .panel .panel-heading .form-control::placeholder {
-        color: rgba(255, 255, 255, 0.5);
-        font-size: 15px;
-        font-weight: 500;
-    }
-
-    .panel .panel-body {
-        padding: 0;
-    }
-
-    .panel .panel-body .table thead tr th {
-        color: #fff;
-        background-color: rgba(255, 255, 255, 0.2);
-        font-size: 16px;
-        font-weight: 500;
-        text-transform: uppercase;
-        padding: 12px;
-        border: none;
-    }
-
-    .panel .panel-body .table tbody tr td {
-        color: #fff;
-        font-size: 15px;
-        padding: 10px 12px;
-        vertical-align: middle;
-        border: none;
-    }
-
-    .panel .panel-body .table tbody tr:nth-child(even) {
-        background-color: rgba(255, 255, 255, 0.05);
-    }
-
-    .panel .panel-body .table tbody .action-list {
-        padding: 0;
-        margin: 0;
-        list-style: none;
-    }
-
-    .panel .panel-body .table tbody .action-list li {
-        display: inline-block;
-        margin: 0 5px;
-    }
-
-    .panel .panel-body .table tbody .action-list li a {
-        color: #fff;
-        font-size: 15px;
-        position: relative;
-        z-index: 1;
-        transition: all 0.3s ease 0s;
-    }
-
-    .panel .panel-body .table tbody .action-list li a:hover {
-        text-shadow: 3px 3px 0 rgba(255, 255, 255, 0.3);
-    }
-
-    .panel .panel-body .table tbody .action-list li a:before,
-    .panel .panel-body .table tbody .action-list li a:after {
-        content: attr(data-tip);
-        color: #fff;
-        background-color: #111;
-        font-size: 12px;
-        padding: 5px 7px;
-        border-radius: 4px;
-        text-transform: capitalize;
-        display: none;
-        transform: translateX(-50%);
-        position: absolute;
-        left: 50%;
-        top: -32px;
-        transition: all 0.3s ease 0s;
-    }
-
-    .panel .panel-body .table tbody .action-list li a:after {
-        content: '';
-        height: 15px;
-        width: 15px;
-        padding: 0;
-        border-radius: 0;
-        transform: translateX(-50%) rotate(45deg);
-        top: -18px;
-        z-index: -1;
-    }
-
-    .panel .panel-body .table tbody .action-list li a:hover:before,
-    .panel .panel-body .table tbody .action-list li a:hover:after {
-        display: block;
-    }
-
-    .panel .panel-footer {
-        color: #fff;
-        background-color: transparent;
-        padding: 15px;
-        border: none;
-    }
-
-    .panel .panel-footer .col {
-        line-height: 35px;
-    }
-
-    .pagination {
-        margin: 0;
-    }
-
-    .pagination li a {
-        color: #fff;
-        background-color: transparent;
-        border: 2px solid transparent;
-        font-size: 18px;
-        font-weight: 500;
-        text-align: center;
-        line-height: 31px;
-        width: 35px;
-        height: 35px;
-        padding: 0;
-        margin: 0 3px;
-        border-radius: 50px;
-        transition: all 0.3s ease 0s;
-    }
-
-
-    .pagination li a:hover {
-        color: #fff;
-        background-color: transparent;
-        border-color: rgba(255, 255, 255, 0.2);
-    }
-
-    .pagination li a:focus,
-    .pagination li.active a,
-    .pagination li.active a:hover {
-        color: #fff;
-        background-color: transparent;
-        border-color: #fff;
-    }
-
-    .pagination li:first-child a,
-    .pagination li:last-child a {
-        border-radius: 50%;
-    }
-
-    @media only screen and (max-width: 767px) {
-        .panel .panel-heading .title {
-            text-align: center;
-            margin: 0 0 10px;
-        }
-
-        .panel .panel-heading .btn_group {
-            text-align: center;
-        }
-    }
-</style>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="/ddap/src/index.css">
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcqpq8QdjwYc2tngkoyvpvdZAmEjSxKM&libraries=places"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+            href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+            rel="stylesheet"
+    />
 </head>
-
-<body>
-    <div class="container fixed">
-        <div class="row">
-            <div class="col-md-offset-1 col-md-10">
-                <div class="panel">
-                    <div class="panel-heading">
-                        <div class="row">
-                            <div class="landscape-content">
-                                <div class="col col-sm-3 col-xs-12">
-                                    <h4 class="title">Notifikasi</h4>
-                                </div>
-                                <div class="col-sm-9 col-xs-12 text-right">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel-body table-responsive">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Desa Anda</th>
-                                    <th>Distributor</th>
-                                    <th>Nama Lengkap</th>
-                                    <th>No Handphone</th>
-                                    <th>Alamat</th>
-                                    <th>GPS</th>
-                                    <th>Email</th>
-                                    <th>Tujuan</th>
-                                    <th>Pangan</th>
-                                    <th>Total Harga</th> <!-- Kolom baru -->
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php while ($row = $result->fetch_assoc()) : ?>
-                                    <tr>
-                                        <td><?php echo $row['lurah_desa']; ?></td>
-                                        <td><?php echo $row['distributor']; ?></td>
-                                        <td><?php echo $row['nama_lengkap']; ?></td>
-                                        <td><?php echo $row['no_handphone']; ?></td>
-                                        <td><?php echo $row['alamat']; ?></td>
-                                        <td>
-                                            <a href="javascript:void(0);" onclick="window.open('https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($row['gps']); ?>', '_blank')" style="color: white;">Buka di Google Maps</a>
-                                        </td>
-                                        <td><?php echo $row['email_pengaju']; ?></td>
-                                        <td><?php echo $row['balai_desa']; ?></td>
-                                        <td>
-                                            <?php
-                                            $jenis_pangan_array = explode(", ", $row['jenis_pangan']);
-                                            $berat_pangan_array = explode(", ", $row['berat_pangan']);
-                                            $combined_array = array();
-                                            for ($i = 0; $i < count($jenis_pangan_array); $i++) {
-                                                $combined_array[] = ($i + 1) . '. ' . $jenis_pangan_array[$i] . ' ' . $berat_pangan_array[$i] . ' ton';
-                                            }
-                                            echo implode("<br>", $combined_array);
-                                            ?>
-                                        </td>
-                                        <td>
-                                            <?php
-                                            // Memformat total harga
-                                            if (is_numeric($row['total_harga'])) {
-                                                $totalHargaFormatted = number_format($row['total_harga'], 0, '', ',');
-                                                echo "Rp. " . $totalHargaFormatted;
-                                            } else {
-                                                echo "Data tidak valid";
-                                            }
-                                            ?>
-                                        </td>
-                                        <td>
-                                            <ul class="action-list">
-                                                <li><a href="proses_persetujuan.php?id=<?php echo $row['id']; ?>" data-tip="Setuju"><i class="fa fa-check"></i></a></li>
-                                                <li><a href="javascript:void(0);" onclick="promptPenolakan(<?php echo $row['id']; ?>);" data-tip="Tolak"><i class="fa fa-times"></i></a></li>                                                <li><a href="#" data-tip="Tolak"><i the "fa fa-trash"></i></a></li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                <?php endwhile; ?>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+<body class="bg-gray-100">
+<nav class="bg-white text-black left-1 p-6 fixed w-full z-10 top-0 ml-[220px]">
+    <div class="flex justify-between items-center ">
+        <a href="#" class="text-black font-semibold text-2xl">Persetujuan dan Riwayat Persetujuan</a>
+        <div class="flex items-center">
+            <div class="mr-6">Selamat datang, <?php echo $namalengkap; ?></div>
+            <div id="" class=" mr-6 relative">
+                <i class="ri-account-circle-line text-3xl"></i>
             </div>
+            <a href="logout" class="mr-[250px]">Keluar <i class="ri-logout-box-line ml-1"></i></a>
         </div>
     </div>
-</body>
+</nav>
+<div class="fixed bg-gray-900 left-0 top-0 w-56 h-full z-50 pr-4">
+    <a class="flex items-center pb-4 border-b border-b-gray-800 mb-10 rounded" href="#">
+        <img src="../assets/img/logo/logo%20thriveterra%20putih.svg" alt="Logo Thrive Terra" class="w-full">
+    </a>
+    <ul class="mt-4">
+        <li class="mb-1 group active" data-step="1" data-title="Dashboard" >
+            <a href="userdashboard.php" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md">
+                <i class="ri-dashboard-horizontal-line mr-3 text-lg"></i>
+                <span class="text-sm">Dashboard</span>
+            </a>
+        </li>
+        <li class="mb-1 group active" data-step="2" data-title="Pendataan"  data-intro="Ini adalah tempat anda melakukan pendataan desa anda.">
+            <a href="pendataan.php" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md">
+                <i class="ri-database-2-line mr-3 text-lg"></i>
+                <span class="text-sm">Pendataan</span>
+            </a>
+        </li>
+        <li class="mb-1 group active" data-step="3" data-title="Pengajuan"  data-intro="Disini tempat anda melakukan pengajuan terhadap desa lain.">
+            <a href="permintaan.php" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md">
+                <i class="ri-git-pull-request-line mr-3 text-lg"></i>
+                <span class="text-sm">Pengajuan</span>
+            </a>
+        </li>
+        <li class="mb-1 group active" data-step="4" data-title="Persetujuan/Riwayat Persetujuan"  data-intro="Di sini tempat anda untuk melakukan persetujuan dan tempat riwayat persetujuan.">
+            <a href="notifikasi.php" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md">
+                <i class="ri-checkbox-multiple-line mr-3 text-lg"></i>
+                <span class="text-sm">Persetujuan dan Riwayat Persetujuan</span>
+            </a>
+        </li>
+        <li class="mb-1 group active" data-step="5" data-title="Hasil Pengajuan"  data-intro="Tempat anda melihat hasil pengajuan.">
+            <a href="hasilpengajuan.php" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md">
+                <i class="ri-booklet-line mr-3 text-lg"></i>
+                <span class="text-sm">Hasil Pengajuan</span>
+            </a>
+        </li>
+        <li class="mb-1 group active">
+            <a href="pendataan.php" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md">
+                <i class="ri-settings-3-line mr-3 text-lg"></i>
+                <span class="text-sm">Pengaturan</span>
+            </a>
+        </li>
+    </ul>
+</div>
 
-</html>
+<div class="container mx-auto mt-16 ml-56 overflow-x-auto w-[1311px]">
+    <div class=" p-6  bg-gray-200 shadow-lg">
+        <div class="flex justify-between items-center mb-6 mt-10">
+            <h1 class="text-2xl  font-bold">Persetujuan</h1>
+        </div>
+        <div class="bg-white rounded-lg shadow-md overflow-x-auto">
+            <table class="min-w-full bg-white">
+                <thead>
+                <tr>
+                    <th class="py-3 px-4 text-left bg-gray-100 font-bold text-gray-600 uppercase">Desa Anda</th>
+                    <th class="py-3 px-4 text-left bg-gray-100 font-bold text-gray-600 uppercase">Distributor</th>
+                    <th class="py-3 px-4 text-left bg-gray-100 font-bold text-gray-600 uppercase">Nama Lengkap</th>
+                    <th class="py-3 px-4 text-left bg-gray-100 font-bold text-gray-600 uppercase">No Handphone</th>
+                    <th class="py-3 px-4 text-left bg-gray-100 font-bold text-gray-600 uppercase">Alamat</th>
+                    <th class="py-3 px-4 text-left bg-gray-100 font-bold text-gray-600 uppercase">GPS</th>
+                    <th class="py-3 px-4 text-left bg-gray-100 font-bold text-gray-600 uppercase">Email</th>
+                    <th class="py-3 px-4 text-left bg-gray-100 font-bold text-gray-600 uppercase">Tujuan</th>
+                    <th class="py-3 px-4 text-left bg-gray-100 font-bold text-gray-600 uppercase">Pangan</th>
+                    <th class="py-3 px-4 text-left bg-gray-100 font-bold text-gray-600 uppercase">Total Harga</th>
+                    <th class="py-3 px-4 text-left bg-gray-100 font-bold text-gray-600 uppercase">Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php while ($row = $result->fetch_assoc()) : ?>
+                    <tr class="bg-gray-50 hover:bg-gray-100 transition duration-150 ease-in-out">
+                        <td class="py-3 px-4"><?php echo $row['lurah_desa']; ?></td>
+                        <td class="py-3 px-4"><?php echo $row['distributor']; ?></td>
+                        <td class="py-3 px-4"><?php echo $row['nama_lengkap']; ?></td>
+                        <td class="py-3 px-4"><?php echo $row['no_handphone']; ?></td>
+                        <td class="py-3 px-4"><?php echo $row['alamat']; ?></td>
+                        <td class="py-3 px-4">
+                            <a href="javascript:void(0);" onclick="window.open('https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($row['gps']); ?>', '_blank')" class="text-blue-600 hover:underline">Buka di Google Maps</a>
+                        </td>
+                        <td class="py-3 px-4"><?php echo $row['email_pengaju']; ?></td>
+                        <td class="py-3 px-4"><?php echo $row['balai_desa']; ?></td>
+                        <td class="py-3 px-4">
+                            <?php
+                            $jenis_pangan_array = explode(", ", $row['jenis_pangan']);
+                            $berat_pangan_array = explode(", ", $row['berat_pangan']);
+                            $combined_array = array();
+                            for ($i = 0; $i < count($jenis_pangan_array); $i++) {
+                                $combined_array[] = ($i + 1) . '. ' . $jenis_pangan_array[$i] . ' ' . $berat_pangan_array[$i] . ' ton';
+                            }
+                            echo implode("<br>", $combined_array);
+                            ?>
+                        </td>
+                        <td class="py-3 px-4">
+                            <?php
+                            if (is_numeric($row['total_harga'])) {
+                                $totalHargaFormatted = number_format($row['total_harga'], 0, '', ',');
+                                echo "Rp. " . $totalHargaFormatted;
+                            } else {
+                                echo "Data tidak valid";
+                            }
+                            ?>
+                        </td>
+                        <td class="py-3 px-4">
+                            <div class="flex items-center space-x-2">
+                                <a href="proses_persetujuan.php?id=<?php echo $row['id']; ?>" class="text-green-600 hover:underline" data-tip="Setuju"><i class="fas fa-check"></i></a>
+                                <a href="javascript:void(0);" onclick="promptPenolakan(<?php echo $row['id']; ?>);" class="text-red-600 hover:underline" data-tip="Tolak"><i class="fas fa-times"></i></a>
 
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+                            </div>
+                        </td>
+                    </tr>
+                <?php endwhile; ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <?php include 'riwayatpersetujuan.php'; ?>
+</div>
+
 <script>
-function promptPenolakan(id) {
-    Swal.fire({
-        title: 'Masukkan Alasan Penolakan',
-        input: 'text',
-        inputAttributes: {
-            autocapitalize: 'off'
-        },
-        showCancelButton: true,
-        confirmButtonText: 'Kirim',
-        cancelButtonText: 'Batal',
-        showLoaderOnConfirm: true,
-        preConfirm: (alasan) => {
-            if (!alasan) {
-                Swal.showValidationMessage('Alasan harus diisi.');
-            } else {
-                return fetch(`proses_penolakan.php?id=${id}&keterangan=${encodeURIComponent(alasan)}`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error(response.statusText);
-                    }
-                    return response.json();
-                })
-                .catch(error => {
-                    Swal.showValidationMessage(`Request failed: ${error}`);
+    function promptPenolakan(id) {
+        Swal.fire({
+            title: 'Masukkan Alasan Penolakan',
+            input: 'text',
+            inputAttributes: {
+                autocapitalize: 'off'
+            },
+            showCancelButton: true,
+            confirmButtonText: 'Kirim',
+            cancelButtonText: 'Batal',
+            showLoaderOnConfirm: true,
+            preConfirm: (alasan) => {
+                if (!alasan) {
+                    Swal.showValidationMessage('Alasan harus diisi.');
+                } else {
+                    return fetch(`proses_penolakan.php?id=${id}&keterangan=${encodeURIComponent(alasan)}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(response.statusText);
+                            }
+                            return response.json();
+                        })
+                        .catch(error => {
+                            Swal.showValidationMessage(`Request failed: ${error}`);
+                        });
+                }
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        }).then((result) => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    title: 'Penolakan Terkirim!',
+                    icon: 'success'
+                }).then(() => {
+                    window.location.reload();
                 });
             }
-        },
-        allowOutsideClick: () => !Swal.isLoading()
-    }).then((result) => {
-        if (result.isConfirmed) {
-            Swal.fire({
-                title: 'Penolakan Terkirim!',
-                icon: 'success'
-            }).then(() => {
-                window.location.reload();
-            });
-        }
-    });
-}
+        });
+    }
 </script>
-
+</body>
+</html>

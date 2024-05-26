@@ -35,20 +35,23 @@ const FaqItem = ({ question, answer }) => {
 const Faq = () => {
   const faqs = [
     {
-      question: 'Lorem ipsum dolor sit amet consectetur',
-      answer: 'Lorem ipsum dolor sit amet consectetur. Pulvinar arcu mattis in at sodales condimentum. Gravida arcu aliquet rutrum erat varius. Tellus felis sed pretium in egestas.',
+      question: '1. Apa itu ThriveTerra?',
+      answer: 'ThriveTerra adalah website yang bergerak dalam mengatasi kelaparan global (zero hunger) dengan fokus pada pengumpulan data dan pendistribusian surplus pangan ke daerah-daerah yang membutuhkan.',
     },
     {
-        question: 'Lorem ipsum dolor sit amet consectetur',
-        answer: 'Lorem ipsum dolor sit amet consectetur. Pulvinar arcu mattis in at sodales condimentum. Gravida arcu aliquet rutrum erat varius. Tellus felis sed pretium in egestas.',
+        question: '2. Bagaimana cara ThriveTerra bekerja?',
+        answer: 'ThriveTerra bekerja melalui dua langkah utama:\n' +
+            '\n' +
+            'Pendataan: Mengumpulkan data tentang surplus pangan dari berbagai sumber.\n' +
+            'Distribusi: Menyalurkan kelebihan pangan tersebut ke komunitas yang membutuhkan.',
       },
       {
-        question: 'Lorem ipsum dolor sit amet consectetur',
-        answer: 'Lorem ipsum dolor sit amet consectetur. Pulvinar arcu mattis in at sodales condimentum. Gravida arcu aliquet rutrum erat varius. Tellus felis sed pretium in egestas.',
+        question: '3. Mengapa penting untuk mendistribusikan surplus pangan?',
+        answer: 'Distribusi surplus pangan membantu mengurangi pemborosan makanan dan memastikan bahwa makanan yang berlebih dapat dimanfaatkan oleh mereka yang membutuhkan, sehingga dapat mengurangi tingkat kelaparan.',
       },
       {
-        question: 'Lorem ipsum dolor sit amet consectetur',
-        answer: 'Lorem ipsum dolor sit amet consectetur. Pulvinar arcu mattis in at sodales condimentum. Gravida arcu aliquet rutrum erat varius. Tellus felis sed pretium in egestas.',
+        question: '4. Bagaimana ThriveTerra memastikan bahwa pangan yang didistribusikan aman dan berkualitas?',
+        answer: 'Kami bekerja sama dengan mitra terpercaya dan memastikan semua pangan yang didistribusikan telah melalui pemeriksaan kualitas dan keamanan sesuai standar yang berlaku.',
       },
   ];
 
@@ -90,11 +93,11 @@ const Faq = () => {
     }, []);
 
   return (
-    <div className="w-full max-w-3xl mx-auto mt-12">
-      <h1 ref={textRef}  className="text-2xl font-semibold text-gray-900 text-center py-4 boxup">
+    <div className="w-full max-w-3xl mx-auto mt-7 mb-12">
+      <h1 ref={textRef}  className="text-2xl font-semibold text-black text-center py-4 boxup">
         Frequently Asked Questions
       </h1>
-      <div  className="divide-y divide-gray-300">
+      <div  className="divide-y divide-gray-300 font-semibold">
         {faqs.map((faq, index) => (
           <FaqItem key={index} question={faq.question} answer={faq.answer} />
         ))}

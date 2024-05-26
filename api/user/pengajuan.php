@@ -25,6 +25,20 @@ $stmt->execute();
 $result = $stmt->get_result();
 $data = $result->fetch_assoc();
 
+
+$sqlUser = "SELECT namalengkap FROM users WHERE email = ?";
+$stmtUser = $conn->prepare($sqlUser);
+$stmtUser->bind_param("s", $email);
+$stmtUser->execute();
+$resultUser = $stmtUser->get_result();
+$userName = $resultUser->fetch_assoc();
+
+if ($user) {
+    $namalengkap = $userName['namalengkap'];
+} else {
+    $namalengkap = "Nama Tidak Ditemukan"; // Atau penanganan lain sesuai kebutuhan
+}
+
 $email_balaidesa_tujuan = isset($data['email_tujuan']) ? $data['email_tujuan'] : '';
 if ($data) {
     $jenisPanganArray = explode(", ", $data['jenis_pangan']);
@@ -62,6 +76,19 @@ $conn->close();
     <title>Pengajuan Jenis Pangan</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="/ddap/src/index.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBcqpq8QdjwYc2tngkoyvpvdZAmEjSxKM&libraries=places"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/ddap/src/index.css">
 
     <script>
         function updateTotalHarga() {
@@ -104,7 +131,64 @@ $conn->close();
 </head>
 
 <body>
-    <div class="container">
+
+<nav class="bg-gray-900 text-white p-4 fixed w-full z-10 top-0 ml-[220px]">
+    <div class="flex justify-between items-center ">
+        <a href="#" class="text-white">Pengajuan</a>
+        <div class="flex items-center">
+            <div class="mr-6">Selamat datang, <?php echo $namalengkap; ?></div>
+            <div id="" class=" mr-6 relative">
+                <i class="ri-account-circle-line text-3xl"></i>
+            </div>
+            <a href="logout" class="mr-[250px]">Keluar <i class="ri-logout-box-line ml-1"></i></a>
+        </div>
+    </div>
+</nav>
+<div class="fixed bg-gray-900 left-0 top-0 w-56 h-full z-50 pr-4">
+    <a class="flex items-center pb-4 border-b border-b-gray-800 mb-10 rounded" href="#">
+        <img src="../assets/img/logo/logo%20thriveterra%20putih.svg" alt="Logo Thrive Terra" class="w-full">
+    </a>
+    <ul class="mt-4">
+        <li class="mb-1 group active" data-step="1" data-title="Dashboard" >
+            <a href="userdashboard.php" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md">
+                <i class="ri-dashboard-horizontal-line mr-3 text-lg"></i>
+                <span class="text-sm">Dashboard</span>
+            </a>
+        </li>
+        <li class="mb-1 group active" data-step="2" data-title="Pendataan"  data-intro="Ini adalah tempat anda melakukan pendataan desa anda.">
+            <a href="pendataan.php" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md">
+                <i class="ri-database-2-line mr-3 text-lg"></i>
+                <span class="text-sm">Pendataan</span>
+            </a>
+        </li>
+        <li class="mb-1 group active" data-step="3" data-title="Pengajuan"  data-intro="Disini tempat anda melakukan pengajuan terhadap desa lain.">
+            <a href="permintaan.php" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md">
+                <i class="ri-git-pull-request-line mr-3 text-lg"></i>
+                <span class="text-sm">Pengajuan</span>
+            </a>
+        </li>
+        <li class="mb-1 group active" data-step="4" data-title="Persetujuan/Riwayat Persetujuan"  data-intro="Di sini tempat anda untuk melakukan persetujuan dan tempat riwayat persetujuan.">
+            <a href="notifikasi.php" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md">
+                <i class="ri-checkbox-multiple-line mr-3 text-lg"></i>
+                <span class="text-sm">Persetujuan dan Riwayat Persetujuan</span>
+            </a>
+        </li>
+        <li class="mb-1 group active" data-step="5" data-title="Hasil Pengajuan"  data-intro="Tempat anda melihat hasil pengajuan.">
+            <a href="hasilpengajuan.php" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md">
+                <i class="ri-booklet-line mr-3 text-lg"></i>
+                <span class="text-sm">Hasil Pengajuan</span>
+            </a>
+        </li>
+        <li class="mb-1 group active">
+            <a href="pendataan.php" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md">
+                <i class="ri-settings-3-line mr-3 text-lg"></i>
+                <span class="text-sm">Pengaturan</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div class=" ml-[150px] mt-14">
+    <div class="container ">
         <h2>Pengajuan Jenis Pangan</h2>
         <form action="submit_pengajuan.php" method="post">
             <div class="form-group">
@@ -175,6 +259,8 @@ $conn->close();
             <button type="submit" class="btn btn-primary">Submit Pengajuan</button>
         </form>
     </div>
+</div>
+
     </form>
     </div>
 </body>

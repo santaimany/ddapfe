@@ -2,10 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import Highcharts from 'highcharts';
 import highchartsMap from 'highcharts/modules/map';
 
-
 highchartsMap(Highcharts);
-const CountUpAnimation = ({ target, duration }) => {
 
+const CountUpAnimation = ({ target, duration }) => {
     const [count, setCount] = useState(0);
     const [animated, setAnimated] = useState(false);
     const ref = useRef(null);
@@ -57,7 +56,6 @@ const CountUpAnimation = ({ target, duration }) => {
 };
 
 const Datagizi = () => {
-
     const titleRef = useRef(null);
     const textRef = useRef(null);
     const imagesRef = useRef(null);
@@ -97,12 +95,10 @@ const Datagizi = () => {
         };
     }, []);
 
-    //map
     useEffect(() => {
         fetch('https://code.highcharts.com/mapdata/countries/id/id-all.geo.json')
             .then(response => response.json())
             .then(topology => {
-
                 const data = [
                     ['id-3700', 10], ['id-ac', 11], ['id-jt', 12], ['id-be', 13],
                     ['id-bt', 14], ['id-kb', 15], ['id-bb', 16], ['id-ba', 17],
@@ -146,7 +142,7 @@ const Datagizi = () => {
                             name: 'Gizi',
                             states: {
                                 hover: {
-                                    color: '#35e2cf'
+                                    color: '#48CAE4'
                                 }
                             },
                             dataLabels: {
@@ -161,16 +157,17 @@ const Datagizi = () => {
                 }
             });
     }, []);
+
     return (
-        <div ref={titleRef} className="max-w-4xl mx-auto p-6 boxr bg-[#f4f4f4] w-full h-screen boxr">
-            <h2  className="text-2xl font-bold text-center mb-4 ">
+        <div ref={titleRef} className="max-w-4xl mx-auto p-6 mt-20 boxr w-full h-screen bg-white text-black  shadow-2xl shadow-[#00b4d8]" >
+            <h2 className="text-2xl font-bold text-center mb-4">
                 Data Sebaran Tingkat Gizi di Indonesia
             </h2>
-            <p  className="text-center mb-8 ">
-                Lorem ipsum dolor sit amet consectetur. Elementum nisl duis tortor sed. Suspendisse lobortis vitae quis vehicula pellentesque sit id
+            <p className="text-center mb-8 ">
+                Melalui analisis data yang mendalam, kami mengidentifikasi wilayah-wilayah yang mengalami kekurangan gizi serta upaya yang diperlukan untuk mengatasinya.
             </p>
             <div className="overflow-x-auto">
-                <table className="w-full text-left">
+                <table className="w-full text-left ">
                     <thead>
                     <tr className="border-b">
                         <th className="pb-4 pt-2">Indeks Kelaparan (GHI)</th>
@@ -180,16 +177,15 @@ const Datagizi = () => {
                     </thead>
                     <tbody>
                     <tr>
-                        <td className="pt-4"><CountUpAnimation target="12" duration={1500} /></td>
+                        <td className="pt-4 px-4"><CountUpAnimation target="12" duration={1500} /></td>
                         <td className="pt-4 px-4"><CountUpAnimation target="77" duration={1500} /></td>
                         <td className="pt-4 px-4"><CountUpAnimation target="16413550" duration={1500} /></td>
                     </tr>
                     </tbody>
                 </table>
-                <div ref={containerRef} className="h-96 md:h-auto w-full md:w-11/12 xl:w-full mx-auto my-4">
-                </div>
-
+                <div ref={containerRef} className="h-96 md:h-auto w-full md:w-11/12 xl:w-full mx-auto my-4"></div>
             </div>
+            <p className='font-extralight italic text-sm '>* Semakin tinggi persentasenya, semakin baik tingkat gizi daerah tersebut.</p>
         </div>
     );
 };

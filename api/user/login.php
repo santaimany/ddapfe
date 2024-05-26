@@ -82,11 +82,11 @@ $conn->close();
     <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" class="space-y-6">
         <div class="form-group">
             <label for="email" class="block text-gray-700">Email:</label>
-            <input type="email" id="email" name="email" class="w-full px-4 py-2 border rounded-md bg-gray-800 focus:bg-white focus:text-black text-white " required>
+            <input type="email" id="email" name="email" class="w-full px-4 py-2 border border-gray-700 rounded-md focus:bg-white focus:text-black text-white " required>
         </div>
         <div class="form-group">
             <label for="password" class="block text-gray-700">Password:</label>
-            <input type="password" id="password" name="password" class="w-full px-4 py-2 border rounded-md bg-gray-800 focus:bg-white focus:text-black text-white " required>
+            <input type="password" id="password" name="password" class="w-full px-4 py-2 border border-gray-700 rounded-md focus:bg-white focus:text-black text-white " required>
             <p class="text-xs text-gray-500 mt-1">It must be a combination of minimum 8 letters, numbers, and symbols.</p>
         </div>
         <div class="flex items-center justify-between">

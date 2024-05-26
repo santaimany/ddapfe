@@ -44,7 +44,7 @@ $conn->close();
     </style>
 </head>
 
-<body class="gradient-custom min-h-screen flex items-center justify-center">
+<body class="gradient-custom min-h-screen flex items-center justify-center bg-gray-900">
 <div class="w-full max-w-lg p-5">
     <div class="bg-white p-8 rounded-lg  shadow-[#023e8a] shadow-2xl">
         <div class="flex justify-center">
@@ -55,42 +55,42 @@ $conn->close();
         <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div class="md:col-span-2">
                 <label for="namalengkap" class="block text-sm font-semibold mb-2 text-gray-400">Nama Lengkap:</label>
-                <input type="text" class="form-control bg-gray-800 focus:bg-white focus:text-black text-white border border-gray-700 rounded w-full p-2 " id="namalengkap" name="namalengkap" required>
+                <input type="text" class="form-control text-black   focus:text-black  border border-gray-700 rounded w-full p-2 " id="namalengkap" name="namalengkap" required>
             </div>
             <div>
                 <label for="no_hp" class="block text-sm font-semibold mb-2 text-gray-400">No HP:</label>
-                <input type="text" class="form-control bg-gray-800 text-white border border-gray-700 rounded w-full p-2 focus:bg-white focus:text-black" id="no_hp" name="no_hp" required>
+                <input type="text" class="form-control  border border-gray-700 rounded w-full p-2 focus:bg-white focus:text-black" id="no_hp" name="no_hp" required>
             </div>
             <div>
                 <label for="alamat" class="block text-sm font-semibold mb-2 text-gray-400">Alamat:</label>
-                <input type="text" class="form-control bg-gray-800 text-white border border-gray-700 rounded w-full p-2 focus:bg-white focus:text-black" id="alamat" name="alamat" required>
+                <input type="text" class="form-control   border border-gray-700 rounded w-full p-2 focus:bg-white focus:text-black" id="alamat" name="alamat" required>
             </div>
             <div>
                 <label for="select2-provinsi" class="block text-sm font-semibold text-gray-400">Provinsi:</label>
-                <select class="form-control bg-gray-800 text-white border border-gray-700 rounded w-full p-2 mt-2 " name="provinsi" id="select2-provinsi" required></select>
+                <select class="form-control  border border-gray-700 rounded w-full p-2 mt-2 " name="provinsi" id="select2-provinsi" required></select>
             </div>
             <div>
                 <label for="select2-kabupaten" class="block text-sm font-semibold mb-2 text-gray-400">Kabupaten:</label>
-                <select class="form-control bg-gray-800 text-white border border-gray-700 rounded w-full p-2" name="kabupaten" id="select2-kabupaten" required></select>
+                <select class="form-control  border border-gray-700 rounded w-full p-2" name="kabupaten" id="select2-kabupaten" required></select>
             </div>
             <div>
                 <label for="select2-kecamatan" class="block text-sm font-semibold mb-2 text-gray-400">Kecamatan:</label>
-                <select class="form-control bg-gray-800 text-white border border-gray-700 rounded w-full p-2" name="kecamatan" id="select2-kecamatan" required></select>
+                <select class="form-control  border border-gray-700 rounded w-full p-2" name="kecamatan" id="select2-kecamatan" required></select>
             </div>
             <div>
                 <label for="select2-kelurahan" class="block text-sm font-semibold mb-2 text-gray-400">Kelurahan:</label>
-                <select class="form-control bg-gray-800 text-white border border-gray-700 rounded w-full p-2" name="kelurahan" id="select2-kelurahan" required></select>
+                <select class="form-control  border border-gray-700 rounded w-full p-2" name="kelurahan" id="select2-kelurahan" required></select>
             </div>
             <div class="md:col-span-2">
                 <label for="email" class="block text-sm font-semibold mb-2 text-gray-400">Email:</label>
-                <input type="email" class="form-control bg-gray-800 text-white border border-gray-700 rounded w-full p-2 focus:bg-white focus:text-black" id="email" name="email" required>
+                <input type="email" class="form-control  border border-gray-700 rounded w-full p-2 focus:bg-white focus:text-black" id="email" name="email" required>
             </div>
             <div class="md:col-span-2">
                 <label for="password" class="block text-sm font-semibold mb-2 text-gray-400">Password:</label>
-                <input type="password" class="form-control bg-gray-800 text-white border border-gray-700 rounded w-full p-2 focus:bg-white focus:text-black" id="password" name="password" required>
+                <input type="password" class="form-control  border border-gray-700 rounded w-full p-2 focus:bg-white focus:text-black" id="password" name="password" required>
             </div>
             <div class="md:col-span-2">
-                <button type="submit" class="bg-black hover:bg-[#CAF0F8] hover:text-black transition-colors text-white  py-3 px-6 rounded-full w-full duration-200">
+                <button type="submit" class="bg-black hover:bg-[#CAF0F8] hover:text-black transition-colors text-white  py-3 px-6 rounded-full w-full duration-200 outline outline-1">
                     Submit
                 </button>
             </div>

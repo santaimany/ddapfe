@@ -51,7 +51,7 @@ const Mission = () => {
             </div>
             <div ref={textRef} className="flex flex-col items-center mx-6 md:mx-12 lg:mx-20 boxup">
                 <p className="text-base md:text-lg lg:text-xl w-full px-5 py-2">
-                    Lorem ipsum dolor sit amet consectetur. Elementum nisl duis tortor sed. Suspendisse lobortis vitae quis vehicula pellentesque sit id.
+                    Kami berkomitmen untuk bekerja tanpa lelah demi dunia yang bebas dari kelaparan, di mana setiap orang memiliki akses ke makanan yang cukup dan bergizi. Bersama-sama, kita bisa membuat perbedaan yang nyata.
                 </p>
             </div>
             <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between">
@@ -65,15 +65,15 @@ const Mission = () => {
                 <p className="font-semibold text-center text-2xl">Mission</p>
                     <li className="flex items-center">
                         <img src={Iconlist} alt="icon" className="w-6 h-6 mr-2" />
-                        <span>Lorem ipsum dolor sit amet consectetur. Elementum nisl duis tortor sed.</span>
+                        <span>Mengoptimalkan penggunaan surplus pangan dengan mengumpulkan dan mendistribusikannya ke daerah yang membutuhkan.</span>
                     </li>
                     <li className="flex items-center">
                         <img src={Iconlist} alt="icon" className="w-6 h-6 mr-2" />
-                        <span>Lorem ipsum dolor sit amet consectetur. Elementum nisl duis tortor sed.</span>
+                        <span>Menciptakan sistem distribusi yang efektif untuk menjamin bahwa setiap orang memiliki akses ke makanan bergizi.</span>
                     </li>
                     <li className="flex items-center">
                         <img src={Iconlist} alt="icon" className="w-6 h-6 mr-2" />
-                        <span>Lorem ipsum dolor sit amet consectetur. Elementum nisl duis tortor sed.</span>
+                        <span>Terus mencari solusi baru dan lebih baik untuk mengatasi kelaparan dan memastikan ketersediaan pangan bagi generasi mendatang.</span>
                     </li>
                 </ul>
 

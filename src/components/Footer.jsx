@@ -42,9 +42,9 @@ const Footer = () => {
         };
     }, []);
   return (
-    <footer id='contact' ref={textRef} className="w-full bg-gray-200 py-5 boxup">
-      <div className="max-w-6xl mx-auto px-4 flex flex-col items-center ">
-        <div className="mb-2 text-lg font-semibold">Connect with us</div>
+    <footer id='contact' ref={textRef} className="w-full bg-gradient-to-b from-[#00b4d8] to-[#0077b6] shadow-2xl shadow-white  py-5 boxup">
+      <div className="max-w-6xl mx-auto px-4 flex flex-col text-white items-center ">
+        <div className="mb-2 text-lg  font-semibold">Connect with us</div>
         <div className="flex space-x-4 mb-4">
           <a href="https://instagram.com" target="_blank" rel="#">
             <FontAwesomeIcon icon={faInstagram} size="2x" />
@@ -59,7 +59,7 @@ const Footer = () => {
             <FontAwesomeIcon icon={faFacebook} size="2x" />
           </a>
         </div>
-        <div className="text-sm text-gray-600">&copy; 2024 ThriveTerra, Inc. All rights reserved.</div>
+        <div className="text-sm ">&copy; 2024 ThriveTerra, Inc. All rights reserved.</div>
       </div>
     </footer>
   );

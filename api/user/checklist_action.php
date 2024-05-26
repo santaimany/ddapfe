@@ -2,15 +2,18 @@
 session_start();
 include '../db/configdb.php';
 
+header('Content-Type: application/json');
+
 if (!isset($_SESSION['email'])) {
-    header('Location: login.php');
+    echo json_encode(['status' => 'error', 'message' => 'User not logged in.']);
     exit;
 }
 
-$id = $_GET['id'] ?? null;
+$id = $_POST['id'] ?? null;
 
 if (!$id) {
-    die("ID tidak ditemukan.");
+    echo json_encode(['status' => 'error', 'message' => 'ID tidak ditemukan.']);
+    exit;
 }
 
 // Mulai transaksi
@@ -43,10 +46,11 @@ try {
 
     // Commit transaksi
     $conn->commit();
-    echo "Data berhasil dipindahkan ke riwayat persetujuan.";
+    echo json_encode(['status' => 'success', 'message' => 'Data berhasil dipindahkan ke riwayat persetujuan.']);
 } catch (Exception $e) {
     $conn->rollback(); // Rollback transaksi jika ada kesalahan
-    die("Error: " . $e->getMessage());
+    echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
 }
 
 $conn->close();
+?>

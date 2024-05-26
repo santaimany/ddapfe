@@ -1,17 +1,15 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import Mission from "./Mission";
-import programbgimg from "../asset/program-bg-top.jpg";
 import Program1 from "../asset/program1.jpg";
 import Program2 from "../asset/program2.jpg";
-import Program3 from  "../asset/program3.jpg";
+import Program3 from "../asset/program3.jpg";
 import Program4 from "../asset/program4.jpg";
 import Videobg from '../asset/video/Y2meta.app-2018 Road to Zero Hunger Campaign in Indonesia-(1080p).mp4';
-
+import Wavebg from '../asset/wave/wave1.svg';
 
 const Program = () => {
-
     const handleRegisterClick = () => {
         window.location.href = 'http://localhost/ddapkelompok4/user/register';
     }
@@ -23,7 +21,6 @@ const Program = () => {
     const testRef = useRef(null)
     const videoRef = useRef(null);
     const [showText, setShowText] = useState(false);
-
 
     useEffect(() => {
         const video = videoRef.current;
@@ -96,9 +93,8 @@ const Program = () => {
                     </div>
                 </section>
 
+                <Mission />
 
-
-                <Mission/>
                 <section className="py-20 px-4">
                     <h2 className="text-2xl font-bold text-center mb-10">Program Kita</h2>
 
@@ -106,80 +102,72 @@ const Program = () => {
                         {/* 2017 Milestone */}
                         <div ref={testRef} className="flex flex-col md:flex-row items-center mb-10 md:mb-20 text-center md:text-left boxr ">
                             <div className="md:flex-1 mb-4 md:mb-0">
-                                <div className="md:w-56 md:h-56 w-40 h-40 bg-green-300 rounded-full mx-auto mb-4 md:mb-0 md:mr-1/2  ">
-                                   <img src={Program1} className="md:w-56 md:h-56 w-40 h-40  rounded-full mx-auto mb-4 md:mb-0 md:mr-1/2  "/>
+                                <div className="md:w-56 md:h-56 w-40 h-40 bg-green-300 rounded-full mx-auto mb-4 md:mb-0 md:mr-1/2">
+                                    <img src={Program1} className="md:w-56 md:h-56 w-40 h-40 rounded-full mx-auto mb-4 md:mb-0 md:mr-1/2" />
                                 </div>
                             </div>
                             <div className="md:flex-1">
-                                <div className="p-6 bg-[#ade8f4] rounded-lg shadow-lg">
+                                <div className="p-6 bg-[#00b4d8] text-white rounded-lg shadow-lg">
                                     <h3 className="text-lg font-bold mb-2">2017</h3>
-                                    <p className="text-gray-700 text-sm">
-                                        ThriveTerra adalah web yang berisikan tentang lorem ipsum dolor sit amet consectetur. Pulvinar arcu mattis in at sodales condimentum. Gravida arcu aliquet rutrum erat varius. Tellus felis sed pretium in egestas.
-                                    </p>
+                                    <p className="text-sm">
+                                        Pada tahun 2017, ThriveTerra diluncurkan dengan misi untuk mengatasi kelaparan global. Kami memulai dengan program pilot di beberapa daerah di Indonesia, fokus pada pengumpulan data tentang surplus pangan dan kebutuhan gizi di komunitas-komunitas yang rentan. Program ini membantu kami memahami tantangan di lapangan dan mengembangkan strategi yang efektif.</p>
                                 </div>
                             </div>
                         </div>
-
 
                         {/* 2018 Milestone */}
                         <div ref={listRef} className="flex flex-col md:flex-row items-center mb-10 md:mb-20 text-center md:text-left boxr">
                             <div className="md:flex-1 mb-4 md:mb-0 order-1 md:order-none">
-                                <div className="p-6 bg-[#03045e] text-white rounded-lg shadow-lg">
+                                <div className="p-6 bg-[#00b4d8] text-white rounded-lg shadow-lg">
                                     <h3 className="text-lg font-bold mb-2">2018</h3>
                                     <p className="text-sm">
-                                        ThriveTerra adalah web yang berisikan tentang lorem ipsum dolor sit amet consectetur. Pulvinar arcu mattis in at sodales condimentum. Gravida arcu aliquet rutrum erat varius. Tellus felis sed pretium in egestas.
-                                    </p>
+                                        Di tahun 2018, kami memperluas jangkauan kami ke lebih banyak daerah. Kami mulai menjalin kerjasama dengan berbagai mitra lokal, termasuk petani, pasar, dan organisasi non-profit. Dengan bantuan mereka, kami berhasil meningkatkan jumlah pangan yang didistribusikan dan memastikan bahwa makanan yang sehat dan bergizi sampai ke tangan yang membutuhkan.</p>
                                 </div>
                             </div>
-                            <div  className="md:flex-1 order-2 md:order-none">
+                            <div className="md:flex-1 order-2 md:order-none">
                                 <div className="md:w-56 md:h-56 w-40 h-40 rounded-full mx-auto mb-4 md:mb-0 md:ml-1/2">
-                                    <img src={Program2} className="inline md:w-56 md:h-56 w-40 h-40  rounded-full mx-auto mb-4 md:mb-0 md:mr-1/2  "/>
+                                    <img src={Program2} className="inline md:w-56 md:h-56 w-40 h-40 rounded-full mx-auto mb-4 md:mb-0 md:mr-1/2" />
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                     <div className="max-w-4xl mx-auto">
                         {/* 2019 Milestone */}
                         <div ref={titleRef} className="flex flex-col md:flex-row items-center mb-10 md:mb-20 text-center md:text-left boxr">
                             <div className="md:flex-1 mb-4 md:mb-0">
-                                <div className="md:w-56 md:h-56 w-40 h-40  rounded-full mx-auto mb-4 md:mb-0 md:mr-1/2">
-                                    <img src={Program3} className="inline md:w-56 md:h-56 w-40 h-40  rounded-full mx-auto mb-4 md:mb-0 md:mr-1/2  "/>
+                                <div className="md:w-56 md:h-56 w-40 h-40 rounded-full mx-auto mb-4 md:mb-0 md:mr-1/2">
+                                    <img src={Program3} className="inline md:w-56 md:h-56 w-40 h-40 rounded-full mx-auto mb-4 md:mb-0 md:mr-1/2" />
                                 </div>
                             </div>
                             <div className="md:flex-1">
-                                <div className="p-6 bg-[#ade8f4] rounded-lg shadow-lg">
+                                <div className="p-6 bg-[#00b4d8] text-white rounded-lg shadow-lg">
                                     <h3 className="text-lg font-bold mb-2">2019</h3>
-                                    <p className="text-gray-700 text-sm">
-                                        ThriveTerra adalah web yang berisikan tentang lorem ipsum dolor sit amet consectetur. Pulvinar arcu mattis in at sodales condimentum. Gravida arcu aliquet rutrum erat varius. Tellus felis sed pretium in egestas.
-                                    </p>
+                                    <p className="text-sm">
+                                        Tahun 2019 merupakan tahun inovasi bagi ThriveTerra. Kami memperkenalkan sistem berbasis teknologi untuk memantau dan mengelola distribusi pangan. Melalui aplikasi mobile dan platform online, kami dapat melacak surplus pangan secara real-time dan mengoptimalkan proses distribusi, sehingga bantuan dapat lebih cepat dan tepat sasaran.</p>
                                 </div>
                             </div>
                         </div>
-
 
                         {/* 2020 Milestone */}
                         <div ref={textRef} className="flex flex-col md:flex-row items-center mb-10 md:mb-20 text-center md:text-left boxr">
                             <div className="md:flex-1 mb-4 md:mb-0 order-1 md:order-none">
-                                <div className="p-6 bg-[#03045e] text-white rounded-lg shadow-lg">
+                                <div className="p-6 bg-[#00b4d8] text-white rounded-lg shadow-lg">
                                     <h3 className="text-lg font-bold mb-2">2020</h3>
-                                    <p className=" text-sm">
-                                        ThriveTerra adalah web yang berisikan tentang lorem ipsum dolor sit amet consectetur. Pulvinar arcu mattis in at sodales condimentum. Gravida arcu aliquet rutrum erat varius. Tellus felis sed pretium in egestas.
-                                    </p>
+                                    <p className="text-sm">
+                                        Di tahun 2020, ThriveTerra telah mencapai banyak hal. Kami berhasil mendistribusikan ribuan ton pangan ke ratusan komunitas di berbagai wilayah. Program-program edukasi tentang pentingnya nutrisi juga mulai berjalan di sekolah-sekolah dan pusat-pusat komunitas. Kami terus berupaya meningkatkan efisiensi dan memperluas jangkauan kami untuk memastikan bahwa lebih banyak orang dapat menerima manfaat dari program kami. </p>
                                 </div>
                             </div>
                             <div className="md:flex-1 order-2 md:order-none">
                                 <div className="md:w-56 md:h-56 w-40 h-40 bg-orange-300 rounded-full mx-auto mb-4 md:mb-0 md:ml-1/2">
-                                    <img src={Program4} className="inline md:w-56 md:h-56 w-40 h-40  rounded-full mx-auto mb-4 md:mb-0 md:mr-1/2  "/>
+                                    <img src={Program4} className="inline md:w-56 md:h-56 w-40 h-40 rounded-full mx-auto mb-4 md:mb-0 md:mr-1/2" />
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
                 </section>
-                <section className="bg-gray-200 text-center py-20 px-4">
+
+                <section className="relative text-center py-20 px-4" style={{ backgroundImage: `url(${Wavebg})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
                     <h2 className="text-3xl font-bold mb-2">Anda perwakilan desa?</h2>
                     <button onClick={handleRegisterClick} className="bg-black text-white px-10 py-2 rounded-full font-semibold hover:bg-[#CAF0F8] hover:text-black transition-colors outline outline-1">
                         Daftar

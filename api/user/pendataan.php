@@ -31,7 +31,6 @@ $resultUser = $stmtUser->get_result();
 $userName = $resultUser->fetch_assoc();
 
 
-
 if ($user) {
     $namalengkap = $userName['namalengkap'];
 } else {
@@ -94,78 +93,64 @@ $stmt->close();
 </head>
 
 <body>
-<nav class="bg-gray-900 text-white p-4 fixed w-full z-10 top-0 ml-[220px] ">
+<nav class="bg-white text-black left-1 p-4  fixed w-full z-10 top-0 ml-[220px]">
     <div class="flex justify-between items-center ">
-        <a href="#" class="text-white">Pendataan</a>
+        <a href="#" class="text-black font-semibold text-2xl">Pendataan</a>
         <div class="flex items-center">
             <div class="mr-6">Selamat datang, <?php echo $namalengkap; ?></div>
-            <div id="notification-icon" class="notification-group mr-6 relative">
-                <i class="ri-notification-3-line bell-icon text-white text-3xl cursor-pointer"></i>
-                <span class="notification-bubble absolute top-[-10px] right-[-10px] bg-red-600 text-white text-xs rounded-full px-2 py-1">0</span>
+            <div id="" class=" mr-6 relative">
+                <i class="ri-account-circle-line text-3xl"></i>
             </div>
             <a href="logout" class="mr-[250px]">Keluar <i class="ri-logout-box-line ml-1"></i></a>
         </div>
     </div>
 </nav>
-
-<div class="fixed left-0 top-0 w-56 h-full bg-gray-900 ">
-    <a class="flex items-center pb-4 border-b border-b-gray-800 shadow-white shadow-lg mb-10 rounded" href="#">
-        <img src="../assets/img/logo/ThriveTerra_Logo.png" alt="Logo Thrive Terra" class="w-full">
+<div class="fixed bg-gray-900 left-0 top-0 w-56 h-full z-50 pr-4">
+    <a class="flex items-center pb-4 border-b border-b-gray-800 mb-10 rounded" href="#">
+        <img src="../assets/img/logo/logo%20thriveterra%20putih.svg" alt="Logo Thrive Terra" class="w-full">
     </a>
     <ul class="mt-4">
-        <li class="mb-1 group active">
-            <a href="pendataan" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md  ">
+        <li class="mb-1 group active" data-step="1" data-title="Dashboard" >
+            <a href="userdashboard.php" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md">
                 <i class="ri-dashboard-horizontal-line mr-3 text-lg"></i>
                 <span class="text-sm">Dashboard</span>
             </a>
         </li>
-        <li class="mb-1 group active">
-            <a href="pendataan" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md  ">
-                <i class="ri-dashboard-horizontal-line mr-3 text-lg"></i>
+        <li class="mb-1 group active" data-step="2" data-title="Pendataan"  data-intro="Ini adalah tempat anda melakukan pendataan desa anda.">
+            <a href="pendataan.php" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md">
+                <i class="ri-database-2-line mr-3 text-lg"></i>
                 <span class="text-sm">Pendataan</span>
             </a>
         </li>
-        <li class="mb-1 group active">
-            <a href="pendataan" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md  ">
-                <i class="ri-guide-line mr-3 text-lg"></i>
+        <li class="mb-1 group active" data-step="3" data-title="Pengajuan"  data-intro="Disini tempat anda melakukan pengajuan terhadap desa lain.">
+            <a href="permintaan.php" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md">
+                <i class="ri-git-pull-request-line mr-3 text-lg"></i>
                 <span class="text-sm">Pengajuan</span>
             </a>
         </li>
-        <li class="mb-1 group active">
-            <a href="pendataan" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md  ">
-                <i class="ri-settings-3-line mr-3 text-lg"></i>
-                <span class="text-sm">Persetujuan</span>
+        <li class="mb-1 group active" data-step="4" data-title="Persetujuan/Riwayat Persetujuan"  data-intro="Di sini tempat anda untuk melakukan persetujuan dan tempat riwayat persetujuan.">
+            <a href="notifikasi.php" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md">
+                <i class="ri-checkbox-multiple-line mr-3 text-lg"></i>
+                <span class="text-sm">Persetujuan dan Riwayat Persetujuan</span>
+            </a>
+        </li>
+        <li class="mb-1 group active" data-step="5" data-title="Hasil Pengajuan"  data-intro="Tempat anda melihat hasil pengajuan.">
+            <a href="hasilpengajuan.php" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md">
+                <i class="ri-booklet-line mr-3 text-lg"></i>
+                <span class="text-sm">Hasil Pengajuan</span>
             </a>
         </li>
         <li class="mb-1 group active">
-            <a href="pendataan" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md  ">
-                <i class="ri-settings-3-line mr-3 text-lg"></i>
-                <span class="text-sm">Hasil</span>
-            </a>
-        </li>
-        <li class="mb-1 group active">
-            <a href="pendataan" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md  ">
+            <a href="pendataan.php" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md">
                 <i class="ri-settings-3-line mr-3 text-lg"></i>
                 <span class="text-sm">Pengaturan</span>
             </a>
         </li>
-
-
-
-
     </ul>
-
-
-
-
-
-
-
-
 </div>
 <div class="flex-1 flex items-center justify-center p-8" style="margin-left: 16rem;">
     <div class="w-full ">
-        <div class="tab-content bg-white p-6 rounded-lg mt-10" id="myTabContent">
+        <div class="tab-content  bg-white p-6 rounded-lg mt-10" id="myTabContent">
             <div class=" gap-4 mb-4">
                 <!-- Form Pengajuan -->
                 <form id="formPendataan" method="post" action="formpendataan.php">
@@ -216,15 +201,15 @@ $stmt->close();
                             <input type="text" class="form-control  w-full rounded" id="harga_satuan1" name="harga_satuan[]" placeholder="Harga Satuan (Rp)">
                         </div>
                     </div>
-                    <div class="flex items-center space-x-2">
-                        <button type="button" id="undoInput" class="bg-gray-900 border border-gray-300 rounded-full px-4 hover:text-black  hover:bg-[#ade8f4] text-white outline outline-1   ">
+                    <div class="flex items-center space-x-2 text-white">
+                        <button type="button" id="undoInput" class="bg-gray-900  rounded-full px-4  font-semibold hover:text-black  hover:bg-[#ade8f4]  outline outline-1   ">
                             <span>-</span>
                         </button>
-                        <span class="text-lg" id="formCount">1</span>
-                        <button type="button" id="tambahInput" class="bg-gray-900 border border-gray-300 rounded-full px-4   hover:text-black  hover:bg-[#ade8f4] text-white outline outline-1">
+                        <span class="text-lg text-black" id="formCount">1</span>
+                        <button type="button" id="tambahInput" class="bg-gray-900  rounded-full px-4 font-semibold   hover:bg-[#ade8f4]  hover:text-black outline outline-1">
                             <span>+</span>
                         </button>
-                        <button type="button" id="resetInput" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-lg focus:outline-none">
+                        <button type="button" id="resetInput" class="ml-3 p-1 px-4 bg-amber-50 text-black font-semibold hover:bg-[#caf0f8] hover:text-black outline-1 outline rounded-md">
                             Reset
                         </button>
                     </div>
@@ -249,8 +234,11 @@ $stmt->close();
                     <br>
                     <br>
                     <br>
-                    <button type="reset" class="btn btn-secondary ">Batal</button>
-                    <button type="submit" class="btn btn-primary" id="submitBtn" style="display: none;"><?php echo $buttonText; ?></button>
+                    <div class="text-white">
+                        <button type="reset" class=" p-2 px-4 m-2 font-semibold hover:bg-[#caf0f8] hover:text-black outline-1 outline rounded-md bg-gray-900  ">Batal</button>
+                        <button type="submit" class="p-2 px-6 bg-amber-50 text-black font-semibold hover:bg-[#caf0f8] hover:text-black outline-1 outline rounded-md" id="submitBtn" style="display: none;"><?php echo $buttonText; ?></button>
+                    </div>
+
                 </form>
 
             </div>

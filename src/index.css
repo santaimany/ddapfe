@@ -189,3 +189,42 @@ transform: translateX(0);
   height: 250px; /* Ensure width and height are the same */
   object-fit: cover; /* Ensures the image covers the shape */
 }
+
+/* Add this CSS to your global styles or CSS file */
+@keyframes dropDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.navbar-drop-down {
+  animation: dropDown 1s ease-in-out;
+}
+
+/* Button */
+
+.arrow {
+  width: 207px;
+  height: 24px;
+
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+
+  color: #414141;
+
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+
+

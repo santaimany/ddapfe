@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 function Signup() {
-    const [inputs, setInputs] = useState({
+    const [formData, setFormData] = useState({
         namalengkap: '',
         no_hp: '',
         provinsi: '',
@@ -14,40 +14,29 @@ function Signup() {
     });
 
     const handleChange = (event) => {
-        const { name, value } = event.target;
-        setInputs(prev => ({
-            ...prev,
-            [name]: value
-        }));
+        setFormData({ ...formData, [event.target.name]: event.target.value });
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const response = await fetch('http://localhost:3306/ddapkelompok4/user/register.php', { // Adjust the URL to your PHP script
+        const response = await fetch('http://yourdomain.com/path/to/register.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
             },
-            body: new URLSearchParams(inputs)
+            body: new URLSearchParams(formData)
         });
-        const data = await response.json();
-        alert(data.message);
+
+        const result = await response.json();
+        console.log(result.message);
     };
 
     return (
         <div>
-            <h1>Sign Up</h1>
             <form onSubmit={handleSubmit}>
-                <input name="namalengkap" value={inputs.namalengkap} onChange={handleChange} placeholder="Full Name" />
-                <input name="no_hp" value={inputs.no_hp} onChange={handleChange} placeholder="Phone Number" />
-                <input name="provinsi" value={inputs.provinsi} onChange={handleChange} placeholder="Province" />
-                <input name="kabupaten" value={inputs.kabupaten} onChange={handleChange} placeholder="City" />
-                <input name="kecamatan" value={inputs.kecamatan} onChange={handleChange} placeholder="District" />
-                <input name="kelurahan" value={inputs.kelurahan} onChange={handleChange} placeholder="Subdistrict" />
-                <input name="alamat" value={inputs.alamat} onChange={handleChange} placeholder="Address" />
-                <input type="email" name="email" value={inputs.email} onChange={handleChange} placeholder="Email" />
-                <input type="password" name="password" value={inputs.password} onChange={handleChange} placeholder="Password" />
-                <button type="submit">Register</button>
+                <input type="text" name="namalengkap" onChange={handleChange} />
+                {/* Other fields */}
+                <button type="submit">Sign Up</button>
             </form>
         </div>
     );
