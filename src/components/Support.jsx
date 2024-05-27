@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import LogoSupport from '../asset/logoplaceholder.svg';
+import LogoSupport from '../asset/Logo_of_Ministry_of_Agriculture_of_the_Republic_of_Indonesia.svg.png';
 import Logoub from '../asset/Logo_Universitas_Brawijaya.svg.png';
 import LogoFilkom from '../asset/logo_filkom.png';
 

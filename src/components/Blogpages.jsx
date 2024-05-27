@@ -104,13 +104,13 @@ const BlogPages = () => {
     }, []);
 
     return (
-        <div>
+        <div className="overflow-x-hidden">
             <Navbar />
-            <div className="fixed inset-0 -z-10 ">
+            <div className="fixed inset-0 -z-10 overflow-hidden">
                 <div className="absolute inset-y-0 -left-[700px] w-full h-full bg-no-repeat bg-left bg-contain transform rotate-[90deg]" style={{ backgroundImage: `url(${Wavebg})` }}></div>
             </div>
-            <div className='h-screen fixed inset-0 -z-20'></div>
-            <div className="fixed inset-0 -z-10 ">
+            <div className='fixed inset-0 -z-20 overflow-hidden'></div>
+            <div className="fixed inset-0 -z-10 overflow-hidden">
                 <div className="absolute inset-y-0 -right-[800px] w-full h-full bg-no-repeat bg-left bg-contain transform rotate-[270deg]" style={{ backgroundImage: `url(${Wavebg})` }}></div>
             </div>
             <div className="py-16 px-4 mt-10 mb-12" data-aos="fade-up">
@@ -129,9 +129,9 @@ const BlogPages = () => {
                 </div>
             </div>
 
-            <div className="max-w-6xl mx-auto px-4 bg-gradient-to-t from-[#0096c7] to-[#023e8a] shadow-2xl shadow-white rounded-full pb-10">
+            <div className="max-w-6xl mx-auto px-4 bg-gradient-to-t from-[#0096c7] to-[#023e8a] shadow-2xl shadow-white rounded-full pb-10 overflow-hidden">
                 <div className="flex justify-center text-white items-center mb-8" data-aos="fade-right">
-                    <h1 className="text-4xl font-bold">Popular</h1>
+                    <h1 className="text-4xl font-bold sm:mt-20 md:mt-20 lg:mt-20">Popular</h1>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
@@ -180,7 +180,7 @@ const BlogPages = () => {
 
                 <h2 className="text-4xl text-white font-bold mb-8" data-aos="fade-left"><span className='text-black'> Featured Artic</span>les</h2>
             </div>
-            <Blog blogData={homeBlogData}/>
+            <Blog blogData={homeBlogData} />
             <Footer />
         </div>
     );

@@ -180,11 +180,25 @@ $conn->close();
 </nav>
 
 <!-- Sidebar -->
-<div class="fixed bg-gray-900 left-0 top-0 w-56 h-full z-50 pr-4">
+<nav class="bg-white text-black left-1 p-4 fixed w-full z-10 top-0 ml-[220px]">
+    <div class="flex justify-between items-center ">
+        <a href="#" class="font-semibold text-black text-2xl">Pendataan</a>
+        <div class="flex items-center">
+            <div class="mr-6">Selamat datang, <?php echo $namalengkap; ?></div>
+            <div id="" class=" mr-6 relative">
+                <i class="ri-account-circle-line text-3xl"></i>
+            </div>
+            <a href="logout" class="mr-[250px]">Keluar <i class="ri-logout-box-line ml-1"></i></a>
+        </div>
+    </div>
+</nav>
+
+<!-- Sidebar -->
+<div class="fixed bg-gray-900 left-0 top-0 w-56 h-full z-50 pr-4 flex flex-col sidebar">
     <a class="flex items-center pb-4 border-b border-b-gray-800 mb-10 rounded" href="#">
         <img src="../assets/img/logo/logo%20thriveterra%20putih.svg" alt="Logo Thrive Terra" class="w-full">
     </a>
-    <ul class="mt-4">
+    <ul class="mt-4 flex flex-col flex-grow">
         <li class="mb-1 group active" data-step="1" data-title="Dashboard" >
             <a href="userdashboard.php" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md">
                 <i class="ri-dashboard-horizontal-line mr-3 text-lg"></i>
@@ -215,13 +229,13 @@ $conn->close();
                 <span class="text-sm">Hasil Pengajuan</span>
             </a>
         </li>
-        <li class="mb-1 group active">
-            <a href="pendataan.php" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md">
-                <i class="ri-settings-3-line mr-3 text-lg"></i>
-                <span class="text-sm">Pengaturan</span>
-            </a>
-        </li>
     </ul>
+    <li class="mb-1 group active help-item">
+        <a href="#" id="help-button" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md">
+            <i class="ri-question-line mr-3 text-lg"></i>
+            <span class="text-sm">Bantuan</span>
+        </a>
+    </li>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

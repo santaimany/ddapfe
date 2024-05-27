@@ -126,10 +126,10 @@ const AboutUs = () => {
     return (
         <div className="bg-light-blue text-gray-600 body-font overflow-x-hidden">
             <Navbar />
-            <div className="container mx-auto fade-in bg-red-600">
+            <div className="container mx-auto fade-in bg-gray-200">
                 <div className="w-full overflow-hidden overflow-y-hidden">
                     <video autoPlay muted loop className="w-full h-full md:h-[100vh] object-cover">
-                        <source src={bgVideo} type="video/mp4" />
+                        <source src={bgVideo} type="video/mp4"  />
                         Your browser does not support the video tag.
                     </video>
                 </div>

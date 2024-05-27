@@ -14,6 +14,8 @@ if (!isset($_SESSION['email'])) {
     exit;
 }
 
+$email = $_SESSION['email'];
+
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $lurah_desa = isset($_GET['lurah_desa']) ? urldecode($_GET['lurah_desa']) : null;
 
@@ -25,6 +27,15 @@ $stmt->execute();
 $result = $stmt->get_result();
 $data = $result->fetch_assoc();
 
+if ($data) {
+    $jenisPanganArray = explode(", ", $data['jenis_pangan']);
+    $beratPanganArray = explode(",", $data['berat_pangan']);
+    $hargaSatuanArray = explode(', ', $data['harga_satuan']);
+    $email_balaidesa_tujuan = $data['email_tujuan'];
+} else {
+    echo 'Tidak ada data ditemukan untuk ID ini.';
+    exit;
+}
 
 $sqlUser = "SELECT namalengkap FROM users WHERE email = ?";
 $stmtUser = $conn->prepare($sqlUser);
@@ -33,24 +44,16 @@ $stmtUser->execute();
 $resultUser = $stmtUser->get_result();
 $userName = $resultUser->fetch_assoc();
 
-if ($user) {
+if ($userName) {
     $namalengkap = $userName['namalengkap'];
 } else {
-    $namalengkap = "Nama Tidak Ditemukan"; // Atau penanganan lain sesuai kebutuhan
+    $namalengkap = "Nama Tidak Ditemukan";
 }
 
-$email_balaidesa_tujuan = isset($data['email_tujuan']) ? $data['email_tujuan'] : '';
-if ($data) {
-    $jenisPanganArray = explode(", ", $data['jenis_pangan']);
-    $beratPanganArray = explode(",", $data['berat_pangan']);
-    $hargaSatuanArray = explode(', ', $data['harga_satuan']);
-} else {
-    echo 'Tidak ada data ditemukan untuk ID ini.';
-}
-
+// Fetch the logged-in user's details
 $sql = "SELECT namalengkap, no_hp, alamat, gps, balai_desa FROM users WHERE email = ?";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("s", $_SESSION['email']);
+$stmt->bind_param("s", $email);
 $stmt->execute();
 $result = $stmt->get_result();
 $user = $result->fetch_assoc();
@@ -63,6 +66,7 @@ if ($user) {
     $balai_desa = $user['balai_desa'];
 } else {
     echo 'Tidak ada data pengguna ditemukan.';
+    exit;
 }
 
 $stmt->close();
@@ -70,7 +74,6 @@ $conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <title>Pengajuan Jenis Pangan</title>
@@ -89,7 +92,14 @@ $conn->close();
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="/ddap/src/index.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intro.js/4.2.2/introjs.min.css" />
+    <style>
+        #content {
+            margin-left: 220px;
+            padding: 20px;
+            padding-top: 140px;
+        }
+    </style>
     <script>
         function updateTotalHarga() {
             var totalHarga = 0;
@@ -129,26 +139,26 @@ $conn->close();
         });
     </script>
 </head>
-
 <body>
-
-<nav class="bg-gray-900 text-white p-4 fixed w-full z-10 top-0 ml-[220px]">
-    <div class="flex justify-between items-center ">
-        <a href="#" class="text-white">Pengajuan</a>
+<nav class="bg-white left-1 p-4 fixed w-full z-10 top-0 ml-[220px]">
+    <div class="flex justify-between items-center">
+        <a href="#" class="text-black font-semibold text-2xl">Pengajuan</a>
         <div class="flex items-center">
             <div class="mr-6">Selamat datang, <?php echo $namalengkap; ?></div>
-            <div id="" class=" mr-6 relative">
+            <div id="notificationTooltip" class="mr-6 relative">
                 <i class="ri-account-circle-line text-3xl"></i>
             </div>
             <a href="logout" class="mr-[250px]">Keluar <i class="ri-logout-box-line ml-1"></i></a>
         </div>
     </div>
 </nav>
-<div class="fixed bg-gray-900 left-0 top-0 w-56 h-full z-50 pr-4">
+
+<!-- Sidebar -->
+<div class="fixed bg-gray-900 left-0 top-0 w-56 h-full z-50 pr-4 flex flex-col sidebar">
     <a class="flex items-center pb-4 border-b border-b-gray-800 mb-10 rounded" href="#">
         <img src="../assets/img/logo/logo%20thriveterra%20putih.svg" alt="Logo Thrive Terra" class="w-full">
     </a>
-    <ul class="mt-4">
+    <ul class="mt-4 flex flex-col flex-grow">
         <li class="mb-1 group active" data-step="1" data-title="Dashboard" >
             <a href="userdashboard.php" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md">
                 <i class="ri-dashboard-horizontal-line mr-3 text-lg"></i>
@@ -179,17 +189,18 @@ $conn->close();
                 <span class="text-sm">Hasil Pengajuan</span>
             </a>
         </li>
-        <li class="mb-1 group active">
-            <a href="pendataan.php" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md">
-                <i class="ri-settings-3-line mr-3 text-lg"></i>
-                <span class="text-sm">Pengaturan</span>
-            </a>
-        </li>
     </ul>
+    <li class="mb-1 group active help-item">
+        <a href="#" id="help-button" class="flex items-center py-2 px-4 text-gray-300 hover:bg-gray-950 rounded-md">
+            <i class="ri-question-line mr-3 text-lg"></i>
+            <span class="text-sm">Bantuan</span>
+        </a>
+    </li>
 </div>
-<div class=" ml-[150px] mt-14">
-    <div class="container ">
-        <h2>Pengajuan Jenis Pangan</h2>
+
+<div id="content" class="bg-gray-100">
+    <div class="container">
+        <h2 class="text-2xl font-semibold mb-10">Pengajuan Jenis Pangan</h2>
         <form action="submit_pengajuan.php" method="post">
             <div class="form-group">
                 <label for="lurah_desa">Balai Desa:</label>
@@ -256,29 +267,57 @@ $conn->close();
             <label>Total Harga: </label>
             <input type="text" id="total_harga" name="total_harga" class="form-control" value="Rp 0" readonly>
             <br>
-            <button type="submit" class="btn btn-primary">Submit Pengajuan</button>
+            <button type="submit" class="bg-amber-50 max-w-[300px] max-h-[60px] px-6 py-3 rounded-lg hover:bg-[#CAF0F8] hover:text-black outline outline-1 text-[14px] font-semibold mb-4 sm:mb-0 flex items-center justify-center transition duration-300 ease-in-out">Submit Pengajuan</button>
         </form>
     </div>
 </div>
-
-    </form>
-    </div>
-</body>
-
-</html>
-
-
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intro.js/4.2.2/intro.min.js"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        var form = document.querySelector('form');
-        form.addEventListener('submit', function(event) {
-            var totalHarga = document.getElementById('total_harga').value;
-            console.log("Total Harga yang dikirim: ", totalHarga); // Debugging untuk melihat nilai yang dikirim
-            if (totalHarga === 'Rp 0') {
-                event.preventDefault(); // Mencegah form dari disubmit jika total harga belum di-set
-                alert('Total harga belum dihitung atau masih nol.');
-            }
+    $(document).ready(function() {
+        $('#help-button').click(function(event) {
+            event.preventDefault(); // Prevent the default action of the link
+            introJs().setOptions({
+                steps: [
+                    {
+                        intro: "Welcome to the dashboard! Let's take a quick tour.",
+                    },
+                    {
+                        element: document.querySelector('[data-step="1"]'),
+                        intro: "Ini adalah dashboard tempat anda melihat data anda.",
+                        position: 'right'
+                    },
+                    {
+                        element: document.querySelector('[data-step="2"]'),
+                        intro: "Ini adalah tempat melakukan pendataan pangan desa Anda.",
+                        position: 'right'
+                    },
+                    {
+                        element: document.querySelector('[data-step="3"]'),
+                        intro: "Ini adalah tempat Anda melakukan pengajuan pangan terhadap desa yang mengalami surplus pangan.",
+                        position: 'right'
+                    },
+                    {
+                        element: document.querySelector('[data-step="4"]'),
+                        intro: "Disini tempat anda melakukan persetujuan pengajuan pangan dan tempat melihat riwayat persetujuan yang telah anda lakukan.",
+                        position: 'right'
+                    },
+                    {
+                        element: document.querySelector('[data-step="5"]'),
+                        intro: "Disini tempat anda melihat hasil pengajuan anda.",
+                        position: 'right'
+                    },
+                ],
+                showBullets: false,
+                showProgress: true,
+                exitOnOverlayClick: false,
+                nextLabel: 'Next',
+                prevLabel: 'Back',
+                skipLabel: 'Skip',
+                doneLabel: 'Finish',
+                disableInteraction: true
+            }).start();
         });
     });
 </script>
+</body>
+</html>

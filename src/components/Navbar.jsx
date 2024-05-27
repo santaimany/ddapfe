@@ -113,7 +113,7 @@ const Navbar = () => {
                             Login
                         </button>
                         <button
-                            onClick={handleLoginClick}
+                            onClick={handleRegister}
                             className='bg-black text-white mt-2 px-6 py-2  rounded-full font-semibold hover:bg-[#CAF0F8] hover:text-black transition-colors md:outline md:outline-1'>
                             Register
                         </button>

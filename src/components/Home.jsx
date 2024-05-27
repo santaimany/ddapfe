@@ -109,7 +109,7 @@ const Home = () => {
                             <div className="flex flex-col sm:flex-row">
                                 <button
                                     onClick={gotoPageProgram}
-                                    className="bg-amber-50 max-w-[300px] max-h-[60px] px-9 py-2 rounded-[20px] hover:bg-[#CAF0F8] sm:mb-4 hover:text-black lg:outline lg:outline-1 text-[14px] font-semibold mb-4 sm:mb-0 sm:mr-3 flex items-center"
+                                    className="bg-amber-50 max-w-[300px] max-h-[60px] px-9 py-2 rounded-[20px] hover:bg-[#CAF0F8] sm:mb-4 hover:text-black lg:outline lg:outline-1  text-[14px] font-semibold mb-4 sm:mb-0 sm:mr-3 flex items-center"
                                 >
                                     Pelajari Lebih Lanjut
                                     <svg className="ml-2" width="11" height="12" viewBox="0 0 21 22" fill="none" xmlns="http://www.w3.org/2000/svg">
