@@ -39,7 +39,7 @@ const Home = () => {
     const boxRef = useRef(null);
     const [isMobile, setIsMobile] = useState(false);
     const handleTinjauClick = () => {
-        window.location.href = 'http://localhost:3000/blog';
+        window.location.href = 'https://thriveterra.vercel.app/blog';
     };
     const handleRegister = () => {
         window.location.href = 'https://ddap.myyrhan.id/user/register';
