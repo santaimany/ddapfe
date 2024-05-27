@@ -16,11 +16,36 @@ import bgVideo from "../asset/video/WhatsApp Video 2024-05-26 at 13.02.48_8200dd
 import { useMediaQuery } from 'react-responsive';
 
 const teamMembers = [
-    { name: "Maulidya Itikaf", role: "Project Manager", image: Maulidya, description: "Sometimes the simplest things are the hardest to find. So we created a new line for everyday life, all year round." },
-    { name: "Graine Ivana", role: "UI/UX Analyst", image: Graine, description: "Sometimes the simplest things are the hardest to find. So we created a new line for everyday life, all year round." },
-    { name: "M. Zaidan Azizi", role: "UI/UX Designer", image: Zaidan, description: "Sometimes the simplest things are the hardest to find. So we created a new line for everyday life, all year round." },
-    { name: "Hilmy Raihan", role: "Back End Developer", image: Hilmy, description: "Sometimes the simplest things are the hardest to find. So we created a new line for everyday life, all year round." },
-    { name: "Ahsanta Khalqi Imany", role: "Front End Developer", image: Santa, description: "Sometimes the simplest things are the hardest to find. So we created a new line for everyday life, all year round." }
+    {
+        name: "Maulidya Itikaf",
+        role: "Project Manager",
+        image: Maulidya,
+        description: "Mengarahkan proyek dengan wawasan pasar dan strategi yang efektif, memastikan keselarasan dengan kebutuhan pengguna."
+    },
+    {
+        name: "Graine Ivana",
+        role: "UI/UX Analyst",
+        image: Graine,
+        description: "Menganalisis dan mengoptimalkan pengalaman pengguna dengan desain yang intuitif dan aksesibel."
+    },
+    {
+        name: "M. Zaidan Azizi",
+        role: "UI/UX Designer",
+        image: Zaidan,
+        description: "Mengembangkan konsep desain yang kreatif dan inovatif, memperkuat identitas visual brand."
+    },
+    {
+        name: "Hilmy Raihan",
+        role: "Back End Developer",
+        image: Hilmy,
+        description: "Membangun infrastruktur server yang aman, fokus pada sistem autentikasi dan otorisasi."
+    },
+    {
+        name: "Ahsanta Khalqi Imany",
+        role: "Front End Developer",
+        image: Santa,
+        description: "Merancang antarmuka web yang responsif dan menarik, meningkatkan keterlibatan pengguna."
+    }
 ];
 
 function SampleNextArrow(props) {
@@ -155,7 +180,7 @@ const AboutUs = () => {
                                 <img src={member.image} alt={member.name} className="w-48 h-48 mb-3 object-cover object-center rounded-full" />
                                 <h2 className="text-lg font-medium">{member.name}</h2>
                                 <h3 className="text-blue-500">{member.role}</h3>
-                                <p className="text-sm">{member.description}</p>
+                                <p className="text-sm font-light mt-2">{member.description}</p>
                             </div>
                         </div>
                     ))}
