@@ -104,13 +104,16 @@ const BlogPages = () => {
     }, []);
 
     return (
-        <div className="overflow-x-hidden">
+        <div>
+            <head>
+                <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            </head>
             <Navbar />
-            <div className="fixed inset-0 -z-10 overflow-hidden">
+            <div className="fixed inset-0 -z-10 ">
                 <div className="absolute inset-y-0 -left-[700px] w-full h-full bg-no-repeat bg-left bg-contain transform rotate-[90deg]" style={{ backgroundImage: `url(${Wavebg})` }}></div>
             </div>
-            <div className='fixed inset-0 -z-20 overflow-hidden'></div>
-            <div className="fixed inset-0 -z-10 overflow-hidden">
+            <div className='h-screen fixed inset-0 -z-20'></div>
+            <div className="fixed inset-0 -z-10 ">
                 <div className="absolute inset-y-0 -right-[800px] w-full h-full bg-no-repeat bg-left bg-contain transform rotate-[270deg]" style={{ backgroundImage: `url(${Wavebg})` }}></div>
             </div>
             <div className="py-16 px-4 mt-10 mb-12" data-aos="fade-up">
@@ -129,7 +132,7 @@ const BlogPages = () => {
                 </div>
             </div>
 
-            <div className="max-w-6xl mx-auto px-4 bg-gradient-to-t from-[#0096c7] to-[#023e8a] shadow-2xl shadow-white rounded-full pb-10 overflow-hidden">
+            <div className="max-w-6xl mx-auto px-4 bg-gradient-to-t from-[#0096c7] to-[#023e8a] shadow-2xl shadow-white rounded-full pb-10">
                 <div className="flex justify-center text-white items-center mb-8" data-aos="fade-right">
                     <h1 className="text-4xl font-bold sm:mt-20 md:mt-20 lg:mt-20">Popular</h1>
                 </div>
